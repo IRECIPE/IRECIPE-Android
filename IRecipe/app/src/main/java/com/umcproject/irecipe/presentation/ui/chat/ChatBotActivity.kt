@@ -5,18 +5,51 @@ import android.os.Handler
 import android.os.Looper
 import android.util.Log
 import android.view.View
+import android.widget.Button
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.umcproject.irecipe.R
+import com.umcproject.irecipe.data.remote.request.AiChatDislikeRequest
+import com.umcproject.irecipe.data.remote.service.aichat.AiChatDislikeService
+import com.umcproject.irecipe.data.remote.service.aichat.AiChatExpiryService
+import com.umcproject.irecipe.data.remote.service.aichat.AiChatRandomService
+import com.umcproject.irecipe.data.remote.service.aichat.AiChatRefriService
 import com.umcproject.irecipe.databinding.ActivityChatBotBinding
 import com.umcproject.irecipe.domain.model.Chat
 import com.umcproject.irecipe.presentation.util.BaseActivity
-import com.umcproject.irecipe.presentation.util.Util.touchHideKeyboard
+import com.umcproject.irecipe.presentation.util.Util
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import retrofit2.http.GET
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class ChatBotActivity: BaseActivity<ActivityChatBotBinding>({ ActivityChatBotBinding.inflate(it)}) {
+    private lateinit var viewModel: ChatViewModel
+    private var refriResponseObserver: Observer<String>? = null
+    private var randomResponseObserver: Observer<String>? = null
+    private var expiryResponseObserver: Observer<String>? = null
+    private var dislikeResponseObserver: Observer<String>? = null
+
     private lateinit var chatList: MutableList<Chat>
     private lateinit var recyclerView: RecyclerView
     private lateinit var chatAdapter: ChatAdapter
+    var lastClickedButton: Button? = null
+
+
+    @Inject
+    lateinit var aiChatRefriService: AiChatRefriService
+    @Inject
+    lateinit var aiChatExpiryService: AiChatExpiryService
+    @Inject
+    lateinit var aiChatRandomService: AiChatRandomService
+    @Inject
+    lateinit var aiChatDislikeService: AiChatDislikeService
 
     companion object{
         const val TAG = "ChatBotActivity"
@@ -24,6 +57,10 @@ class ChatBotActivity: BaseActivity<ActivityChatBotBinding>({ ActivityChatBotBin
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        binding.root.setOnClickListener { Util.touchHideKeyboard(this) }
+
+        viewModel = ViewModelProvider(this).get(ChatViewModel::class.java)
+        observeChange()
 
         chatList = ArrayList()
         initView() // 어뎁터 설정
@@ -39,7 +76,7 @@ class ChatBotActivity: BaseActivity<ActivityChatBotBinding>({ ActivityChatBotBin
         recyclerView = binding.chatRecyclerView
 
         // setup recycler view
-        chatAdapter = ChatAdapter(chatList, this)
+        chatAdapter = ChatAdapter(viewModel, chatList)
         recyclerView.adapter = chatAdapter
 
         val llm = LinearLayoutManager(this)
@@ -56,26 +93,54 @@ class ChatBotActivity: BaseActivity<ActivityChatBotBinding>({ ActivityChatBotBin
     }
 
     private fun addResponse(response: String) { //채팅 응답
-        chatList.removeAt(chatList.size - 1)
+        //chatList.removeAt(chatList.size - 1)
         addToChat(response, Chat.SENT_BY_BOT)
+    }
+
+    private fun observeChange(){
+        refriResponseObserver = Observer { response ->
+            addResponse(response)
+        }
+        randomResponseObserver = Observer { response ->
+            addResponse(response)
+        }
+        expiryResponseObserver = Observer { response ->
+            addResponse(response)
+        }
+        dislikeResponseObserver = Observer { response ->
+            addResponse(response)
+        }
     }
 
     private fun onClickQuestion(){
         binding.btnChat1.setOnClickListener {
             val question = binding.btnChat1.text.toString()
             addToChat(question, Chat.SENT_BY_ME)
+            lastClickedButton = binding.btnChat1
+
+            viewModel.resultRefri() //냉장고 답변
+            viewModel.refriResponse.observe(this, refriResponseObserver!!)
         }
         binding.btnChat2.setOnClickListener {
             val question = binding.btnChat2.text.toString()
             addToChat(question, Chat.SENT_BY_ME)
+            lastClickedButton = binding.btnChat2
+
+            viewModel.resultRandom() //랜덤 답변
+            viewModel.randomResponse.observe(this, randomResponseObserver!!)
         }
         binding.btnChat3.setOnClickListener {
             val question = binding.btnChat3.text.toString()
             addToChat(question, Chat.SENT_BY_ME)
+            lastClickedButton = binding.btnChat3
+
+            viewModel.resultExpiry() //유통기한 답변
+            viewModel.expiryResponse.observe(this, expiryResponseObserver!!)
         }
         binding.btnChat4.setOnClickListener {
             val question = binding.btnChat4.text.toString()
             addToChat(question, Chat.SENT_BY_ME)
+            lastClickedButton = binding.btnChat4
         }
     }
 
@@ -84,6 +149,11 @@ class ChatBotActivity: BaseActivity<ActivityChatBotBinding>({ ActivityChatBotBin
             val question = binding.tvChat.text.toString().trim()
             addToChat(question, Chat.SENT_BY_ME)
             // editText 내용 삭제
+            if (lastClickedButton == binding.btnChat4) {
+                viewModel.resultDislike(question)
+                viewModel.dislikeResponse.observe(this, dislikeResponseObserver!!)
+            }
+            lastClickedButton = null
             binding.tvChat.text.clear()
         }
     }

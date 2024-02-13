@@ -1,4 +1,4 @@
-package com.umcproject.irecipe.data.remote.response
+package com.umcproject.irecipe.data.remote.response.login
 
 
 import com.squareup.moshi.Json

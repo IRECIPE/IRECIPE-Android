@@ -1,11 +1,9 @@
 package com.umcproject.irecipe.presentation.ui.signup.step
 
 import android.app.AlertDialog
-import android.graphics.Color
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,15 +16,12 @@ import com.umcproject.irecipe.R
 import com.umcproject.irecipe.databinding.FragmentSignupSecondBinding
 import com.umcproject.irecipe.presentation.ui.signup.SignUpViewModel
 import com.umcproject.irecipe.presentation.util.BaseFragment
-import com.umcproject.irecipe.presentation.util.State
-import com.umcproject.irecipe.presentation.util.UriUtil.toFile
-import com.umcproject.irecipe.presentation.util.Util
+import com.umcproject.irecipe.domain.State
 import com.umcproject.irecipe.presentation.util.Util.popFragment
 import com.umcproject.irecipe.presentation.util.Util.showHorizontalFragment
 import com.umcproject.irecipe.presentation.util.Util.touchHideKeyboard
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 

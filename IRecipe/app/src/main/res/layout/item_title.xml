@@ -25,6 +25,7 @@
             android:id="@+id/ibtn_detail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:visibility="gone"
             android:src="@drawable/ic_arrow_right"
             android:backgroundTint="@color/transparent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -35,6 +36,7 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_ingredient"
+        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginVertical="8dp"
@@ -43,5 +45,29 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_title"/>
+
+    <LinearLayout
+        android:id="@+id/ll_empty"
+        android:visibility="gone"
+        android:background="@color/yellow_1"
+        android:paddingVertical="24dp"
+        android:layout_marginVertical="8dp"
+        android:elevation="2dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical">
+        <ImageView
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:src="@drawable/ic_empty"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/ref_empty"
+            android:textColor="@color/gray_1"
+            android:textStyle="bold"/>
+
+    </LinearLayout>
 
 </LinearLayout>

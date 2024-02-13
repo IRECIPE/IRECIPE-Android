@@ -1,29 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/menu_type_meet"
-        android:title="@string/food_type_meet"/>
+        android:id="@+id/menu_type_normal"
+        android:title="@string/food_type_normal"/>
     <item
-        android:id="@+id/menu_type_vegetable"
-        android:title="@string/food_type_vegetable"/>
+        android:id="@+id/menu_type_frozen"
+        android:title="@string/food_type_frozen"/>
     <item
-        android:id="@+id/menu_type_fruit"
-        android:title="@string/food_type_fruit"/>
-    <item
-        android:id="@+id/menu_type_seafood"
-        android:title="@string/food_type_seafood"/>
-    <item
-        android:id="@+id/menu_type_drink"
-        android:title="@string/food_type_drink"/>
-    <item
-        android:id="@+id/menu_type_processed"
-        android:title="@string/food_type_processed"/>
-    <item
-        android:id="@+id/menu_type_condiment"
-        android:title="@string/food_type_condiment"/>
-    <item
-        android:id="@+id/menu_type_dairy"
-        android:title="@string/food_type_dairy"/>
-
+        android:id="@+id/menu_type_cold"
+        android:title="@string/food_type_cold"/>
 
 </menu>

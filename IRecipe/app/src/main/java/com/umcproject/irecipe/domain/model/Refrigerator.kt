@@ -3,18 +3,14 @@ package com.umcproject.irecipe.domain.model
 import java.util.Date
 
 data class Refrigerator(
-    val title: String,
+    val type: String,
     val ingredient: List<Ingredient>
 )
-val mockList: List<Ingredient> = listOf(
-    Ingredient(name = "마요네즈", category = "재료", saveInfo = "실온", expiration = Date(20230903), memo = ""),
-    Ingredient(name = "마요네즈", category = "재료", saveInfo = "실온", expiration = Date(20230903), memo = ""),
-    Ingredient(name = "마요네즈", category = "재료", saveInfo = "실온", expiration = Date(20230903), memo = "")
-)
+val mockList: List<Ingredient> = emptyList()
 
 val mockData: List<Refrigerator> = listOf(
-    Refrigerator(title = "실온보관", ingredient = mockList),
-    Refrigerator(title = "냉동보관", ingredient = mockList),
-    Refrigerator(title = "냉장보관", ingredient = mockList),
+    Refrigerator(type = "실온보관", ingredient = mockList),
+    Refrigerator(type = "냉동보관", ingredient = mockList),
+    Refrigerator(type = "냉장보관", ingredient = mockList),
 )
 

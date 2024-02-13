@@ -1,23 +1,24 @@
 package com.umcproject.irecipe.presentation.ui.chat
 
-import android.app.Activity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.lifecycle.ViewModel
 import androidx.recyclerview.widget.RecyclerView
 import com.umcproject.irecipe.R
 import com.umcproject.irecipe.domain.model.Chat
 import com.umcproject.irecipe.presentation.util.Util.touchHideKeyboard
 
 class ChatAdapter(
-    private val chatList: List<Chat>,
-    private val activity: Activity
+    private val activity: ViewModel,
+    private val chatList: List<Chat>
 ): RecyclerView.Adapter<ChatAdapter.MyViewHolder>() {
 
     inner class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        init { itemView.setOnClickListener { touchHideKeyboard(activity) } }
+        //init { itemView.setOnClickListener { touchHideKeyboard(activity) } }
+
         //채팅 화면
         var leftChatView: LinearLayout = itemView.findViewById(R.id.view_left_chat_final)
         var rightChatView: LinearLayout = itemView.findViewById(R.id.view_right_chat)
@@ -47,4 +48,5 @@ class ChatAdapter(
     override fun getItemCount(): Int {
         return chatList.size
     }
+
 }

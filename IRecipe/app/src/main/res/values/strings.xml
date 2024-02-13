@@ -68,29 +68,30 @@
     <string name="ref_hint_add_name">제품명을 입력해주세요</string>
     <string name="ref_add_expiration">유통 기한</string>
     <string name="ref_hint_add_expiration">날짜 선택</string>
-    <string name="ref_add_type">음식종류</string>
-    <string name="ref_hint_add_type">음식종류 선택</string>
-    <string name="ref_add_save">보관 방법</string>
-    <string name="ref_hint_add_save">보관방법 선택</string>
+    <string name="ref_add_category">음식종류</string>
+    <string name="ref_hint_add_category">음식종류 선택</string>
+    <string name="ref_add_type">보관 방법</string>
+    <string name="ref_hint_add_type">보관방법 선택</string>
     <string name="ref_add_memo">메모</string>
     <string name="ref_hint_add_memo">최대 20자 작성가능</string>
     <string name="ref_add_complete">음식 저장</string>
-    <string name="ref_date_format">%d/%d/%d</string>
+    <string name="ref_empty">앗! 등록된 음식이 없어요</string>
 
     <!--음식 종류-->
-    <string name="food_type_meet">육류</string>
-    <string name="food_type_vegetable">육류</string>
-    <string name="food_type_fruit">과일</string>
-    <string name="food_type_seafood">해산물</string>
-    <string name="food_type_drink">음료</string>
-    <string name="food_type_dairy">유제품</string>
-    <string name="food_type_condiment">조미료</string>
-    <string name="food_type_processed">가공식품</string>
+    <string name="food_category_meet">육류</string>
+    <string name="food_category_vegetable">채소류</string>
+    <string name="food_category_fruit">과일</string>
+    <string name="food_category_fish">어패류</string>
+    <string name="food_category_crustacean">갑각류</string>
+    <string name="food_category_drink">음료</string>
+    <string name="food_category_dairy">유제품</string>
+    <string name="food_category_sauce">소스</string>
+    <string name="food_category_processed">가공식품</string>
     
     <!--음식 보관-->
-    <string name="food_save_normal">실온 보관</string>
-    <string name="food_save_cold">냉장 보관</string>
-    <string name="food_save_frozen">냉동 보관</string>
+    <string name="food_type_normal">실온 보관</string>
+    <string name="food_type_cold">냉장 보관</string>
+    <string name="food_type_frozen">냉동 보관</string>
 
     <!-- 커뮤니티 UI -->
     <string name="com_hint">오늘의 레시피를 검색해 보세요</string>
@@ -153,4 +154,14 @@
     <!-- Common -->
     <string name="common_ok">확인</string>
     <string name="common_cancel">취소</string>
+    <string name="common_modify">수정하기</string>
+    <string name="common_modify_confirm">수정완료</string>
+
+    <!-- Error Message -->
+    <string name="error_server_refrigerator">[Error: %d] 냉장고를 불러오는데 실패했습니다.</string>
+    <string name="error_refrigerator">[Error: %s] 냉장고를 불러오는데 실패했습니다.</string>
+    <string name="error_add_ingredient">[Error: %d] 음식을 저장하는데 실패했습니다.</string>
+
+    <!-- Confirm Message -->
+    <string name="confirm_add_ingredient">음식을 등록했어요!</string>
 </resources>

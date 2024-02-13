@@ -1,7 +1,6 @@
 package com.umcproject.irecipe.presentation.ui.login
 
 import android.content.Context
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -10,22 +9,13 @@ import com.kakao.sdk.user.UserApiClient
 import com.navercorp.nid.oauth.NidOAuthLogin
 import com.navercorp.nid.profile.NidProfileCallback
 import com.navercorp.nid.profile.data.NidProfileResponse
-import com.umcproject.irecipe.data.remote.repository.UserDataRepositoryIml
-import com.umcproject.irecipe.data.remote.request.LoginRequest
+import com.umcproject.irecipe.data.remote.request.login.LoginRequest
 import com.umcproject.irecipe.data.remote.service.login.CheckMemberService
 import com.umcproject.irecipe.data.remote.service.login.LoginService
 import com.umcproject.irecipe.domain.repository.UserDataRepository
 import com.umcproject.irecipe.presentation.ui.login.manager.KakaoLoginManager
 import com.umcproject.irecipe.presentation.ui.login.manager.NaverLoginManager
-import com.umcproject.irecipe.presentation.util.State
-import dagger.hilt.android.lifecycle.HiltViewModel
-import dagger.hilt.android.qualifiers.ActivityContext
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
-import javax.inject.Inject
-import kotlin.math.log
 
 class LoginViewModel(
     context: Context,

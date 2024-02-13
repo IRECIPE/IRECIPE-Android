@@ -1,7 +1,7 @@
 package com.umcproject.irecipe.data.remote.service.login
 
-import com.umcproject.irecipe.data.remote.request.SignUpRequest
-import com.umcproject.irecipe.data.remote.response.LoginResponse
+import com.umcproject.irecipe.data.remote.request.login.SignUpRequest
+import com.umcproject.irecipe.data.remote.response.login.LoginResponse
 import okhttp3.MultipartBody
 import retrofit2.Response
 import retrofit2.http.Multipart

@@ -2,17 +2,16 @@ package com.umcproject.irecipe.presentation.ui.signup
 
 import android.content.Context
 import android.net.Uri
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.umcproject.irecipe.domain.model.User
-import com.umcproject.irecipe.domain.repository.UserDataRepository
-import com.umcproject.irecipe.data.remote.request.SignUpRequest
+import com.umcproject.irecipe.data.remote.request.login.SignUpRequest
 import com.umcproject.irecipe.data.remote.service.login.NickDuplicationService
 import com.umcproject.irecipe.data.remote.service.login.SignUpService
-import com.umcproject.irecipe.presentation.util.State
+import com.umcproject.irecipe.domain.State
+import com.umcproject.irecipe.domain.model.User
+import com.umcproject.irecipe.domain.repository.UserDataRepository
 import com.umcproject.irecipe.presentation.util.UriUtil.toFile
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
@@ -27,7 +26,6 @@ import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.asRequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
-import java.io.File
 import javax.inject.Inject
 
 @HiltViewModel

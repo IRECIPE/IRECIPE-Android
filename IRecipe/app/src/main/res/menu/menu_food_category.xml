@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/menu_category_meet"
+        android:title="@string/food_category_meet"/>
+    <item
+        android:id="@+id/menu_category_vegetable"
+        android:title="@string/food_category_vegetable"/>
+    <item
+        android:id="@+id/menu_category_fruit"
+        android:title="@string/food_category_fruit"/>
+    <item
+        android:id="@+id/menu_category_fish"
+        android:title="@string/food_category_fish"/>
+    <item
+        android:id="@+id/menu_category_crustacean"
+        android:title="@string/food_category_crustacean"/>
+    <item
+        android:id="@+id/menu_category_drink"
+        android:title="@string/food_category_drink"/>
+    <item
+        android:id="@+id/menu_category_dairy"
+        android:title="@string/food_category_dairy"/>
+    <item
+        android:id="@+id/menu_category_sauce"
+        android:title="@string/food_category_sauce"/>
+    <item
+        android:id="@+id/menu_category_processed"
+        android:title="@string/food_category_processed"/>
+
+
+</menu>

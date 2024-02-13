@@ -15,8 +15,8 @@
     </item>
 
     <!-- 이미지 -->
-    <item android:drawable="@drawable/ic_chat_profile"
-        android:start="7dp"
+    <item android:drawable="@drawable/ic_app_mini"
+        android:start="3dp"
         android:top="5dp">
         <!-- 이미지의 위치 및 크기 조절 -->
     </item>

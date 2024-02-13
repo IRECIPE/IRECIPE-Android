@@ -8,16 +8,23 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import com.umcproject.irecipe.R
+import com.umcproject.irecipe.data.remote.service.login.CheckMemberService
 import com.umcproject.irecipe.databinding.FragmentMypageBinding
 import com.umcproject.irecipe.presentation.util.BaseFragment
 import com.umcproject.irecipe.presentation.util.MainActivity
 import com.umcproject.irecipe.presentation.util.Util
 import com.umcproject.irecipe.presentation.util.Util.showFragment
 import com.umcproject.irecipe.presentation.util.Util.showHorizontalFragment
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 class MypageFragment( private val onClickDetail: (String) -> Unit,
                       private val onClickBackBtn: (String) -> Unit
     ): BaseFragment<FragmentMypageBinding>() {
+
     companion object{
         const val TAG = "MypageFragment"
     }

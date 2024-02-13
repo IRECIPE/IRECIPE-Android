@@ -1,4 +1,4 @@
-package com.umcproject.irecipe.presentation.util
+package com.umcproject.irecipe.domain
 
 sealed class State<out T>(val _data: T?){
     object Loading: State<Nothing>(_data = null)

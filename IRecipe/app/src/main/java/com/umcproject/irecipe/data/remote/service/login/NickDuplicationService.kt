@@ -1,6 +1,6 @@
 package com.umcproject.irecipe.data.remote.service.login
 
-import com.umcproject.irecipe.data.remote.response.NickDuplicationResponse
+import com.umcproject.irecipe.data.remote.response.login.NickDuplicationResponse
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query

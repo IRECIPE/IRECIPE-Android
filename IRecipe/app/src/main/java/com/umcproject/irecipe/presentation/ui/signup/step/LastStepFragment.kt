@@ -1,6 +1,5 @@
 package com.umcproject.irecipe.presentation.ui.signup.step
 
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -12,13 +11,10 @@ import com.umcproject.irecipe.databinding.FragmentSignupLastBinding
 import com.umcproject.irecipe.presentation.ui.signup.SignUpViewModel
 import com.umcproject.irecipe.presentation.ui.signup.step.dialog.AllergyChoiceDialog
 import com.umcproject.irecipe.presentation.util.BaseFragment
-import com.umcproject.irecipe.presentation.util.MainActivity
-import com.umcproject.irecipe.presentation.util.State
+import com.umcproject.irecipe.domain.State
 import com.umcproject.irecipe.presentation.util.Util
-import com.umcproject.irecipe.presentation.util.onboarding.OnboardingActivity
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 class LastStepFragment(

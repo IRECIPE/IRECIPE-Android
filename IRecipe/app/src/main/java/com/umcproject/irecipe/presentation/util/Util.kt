@@ -61,4 +61,71 @@ object Util {
             inputManager.hideSoftInputFromWindow(activity.currentFocus?.windowToken, InputMethodManager.HIDE_NOT_ALWAYS)
         }
     }
+
+    fun mapperToTitle(title: String): String{
+        return if(title == "AMBIENT") "실온보관" else if(title == "FROZEN") "냉동보관" else "냉장보관"
+    }
+
+    fun mapperToEngIngredientCategory(category: String): String{
+        return when (category) {
+            "육류" -> "MEAT"
+            "채소류" -> "VEGETABLE"
+            "과일" -> "FRUIT"
+            "어패류" -> "FISH"
+            "갑각류" -> "CRUSTACEAN"
+            "음료" -> "DRINK"
+            "유제품" -> "DAIRY_PRODUCT"
+            "소스" -> "SAUCE"
+            "가공식품" -> "PROCESSED_FOOD"
+            else -> "ERROR"
+        }
+    }
+
+    fun mapperToEngIngredientType(type: String): String{
+        return when(type) {
+            "실온 보관" -> "AMBIENT"
+            "냉동 보관" -> "FROZEN"
+            "냉장 보관" -> "REFRIGERATED"
+            else -> "Error"
+        }
+    }
+
+    fun mapperToKorIngredientCategory(category: String): String{
+        return when (category) {
+            "MEAT" -> "육류"
+            "VEGETABLE" -> "채소류"
+            "FRUIT" -> "과일"
+            "FISH" -> "어패류"
+            "CRUSTACEAN" -> "갑각류"
+            "DRINK" -> "음료"
+            "DAIRY_PRODUCT" -> "유제품"
+            "SAUCE" -> "소스"
+            "PROCESSED_FOOD" -> "가공식품"
+            else -> "ERROR"
+        }
+    }
+
+    fun mapperToKorIngredientType(type: String): String{
+        return when(type) {
+            "AMBIENT" -> "실온 보관"
+            "FROZEN" -> "냉동 보관"
+            "REFRIGERATED" -> "냉장 보관"
+            else -> "Error"
+        }
+    }
+
+    fun getEngResourceId(category: String): Int?{
+        return when (category) {
+            "MEAT" -> R.drawable.ic_meat
+            "VEGETABLE" -> R.drawable.ic_vecetable
+            "FRUIT" -> R.drawable.ic_fruit
+            "FISH" -> R.drawable.ic_fish
+            "CRUSTACEAN" -> R.drawable.ic_crustacean
+            "DRINK" -> R.drawable.ic_drink
+            "DAIRY_PRODUCT" -> R.drawable.ic_dairy
+            "SAUCE" -> R.drawable.ic_sauce
+            "PROCESSED_FOOD" -> R.drawable.ic_processed
+            else -> null
+        }
+    }
 }
