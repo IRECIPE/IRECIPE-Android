@@ -37,13 +37,13 @@ class MypageCenterFragment(
         //화면 이름 변경
         (context as MainActivity).binding.tvTitle.text = "고객센터"
         wordsLimit(binding.tvCenterTitle, binding.tvCenterTitleCnt, 20)
-    //       val receivers = arrayOf("wohd7877@naver.com")
-//        binding.button3.setOnClickListener {
-//            sendEmailToAdmin(this, binding.tvCenterTitle.text.toString(), binding.tvCenterText.text.toString(), receivers)
-//            binding.tvCenterTitle.text.clear()
-//            binding.tvCenterText.text.clear()
-//            Snackbar.make(view, "이메일 전송에 성공하였습니다.", Snackbar.LENGTH_SHORT).show()
-//        }
+           val receivers = arrayOf("rmarkd1404@gmail.com")
+        binding.button3.setOnClickListener {
+            sendEmailToAdmin(this, binding.tvCenterTitle.text.toString(), binding.tvCenterText.text.toString(), receivers)
+            binding.tvCenterTitle.text.clear()
+            binding.tvCenterText.text.clear()
+            Snackbar.make(view, "이메일 전송에 성공하였습니다.", Snackbar.LENGTH_SHORT).show()
+        }
     }
 
     override fun onDestroy() {
@@ -54,7 +54,7 @@ class MypageCenterFragment(
 
     fun sendEmailToAdmin(context: MypageCenterFragment, title: String, content:String, receivers: Array<String>) {
         val email = Intent(Intent.ACTION_SEND)
-        email.putExtra(Intent.EXTRA_SUBJECT, title)
+        email.putExtra(Intent.EXTRA_SUBJECT, "[아이레시피 문의]" + title)
         email.putExtra(Intent.EXTRA_TEXT, content)
         email.putExtra(Intent.EXTRA_EMAIL, receivers)
         Log.d("EmailUtils", "Sending email to: ${receivers.joinToString()}")

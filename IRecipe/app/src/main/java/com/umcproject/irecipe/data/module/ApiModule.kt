@@ -1,5 +1,4 @@
 package com.umcproject.irecipe.data.module
-
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import com.umcproject.irecipe.BuildConfig
@@ -8,6 +7,7 @@ import com.umcproject.irecipe.data.remote.service.chat.AiChatDislikeService
 import com.umcproject.irecipe.data.remote.service.chat.AiChatExpiryService
 import com.umcproject.irecipe.data.remote.service.chat.AiChatRandomService
 import com.umcproject.irecipe.data.remote.service.chat.AiChatRefriService
+import com.umcproject.irecipe.data.remote.service.chat.AiChatService
 import com.umcproject.irecipe.data.remote.service.community.GetPostService
 import com.umcproject.irecipe.data.remote.service.community.WritePostService
 import com.umcproject.irecipe.data.remote.service.community.GetPostDetailService
@@ -235,5 +235,11 @@ class ApiModule {
     @Singleton
     fun provideDeleteMember(retrofit: Retrofit): DeleteMemberService {
         return retrofit.create(DeleteMemberService::class.java)
+    }
+    
+    @Provides
+    @Singleton
+    fun provideAiChatService(retrofit: Retrofit):AiChatService{
+        return retrofit.create(AiChatService::class.java)
     }
 }

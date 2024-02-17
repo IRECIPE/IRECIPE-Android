@@ -124,6 +124,8 @@ dependencies {
     //Coil
     implementation("io.coil-kt:coil:2.4.0")
 
+    //Viewpager
+    implementation ("androidx.viewpager2:viewpager2:1.0.0")
 }
 
 kapt {

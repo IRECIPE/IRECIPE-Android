@@ -48,7 +48,7 @@
             android:layout_marginBottom="20dp"
             android:background="@drawable/bg_chat_textbox"
             android:hint="만들고 싶은 레시피를 AI에게 물어보세요."
-            android:textSize="12dp" />
+            android:textSize="14dp" />
 
         <ImageButton
             android:id="@+id/button2"

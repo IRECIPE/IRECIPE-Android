@@ -189,6 +189,8 @@ class WritePostFragment(
                         is State.Error -> {
                             Snackbar.make(requireView(), "Error: ${state.exception.message}", Snackbar.LENGTH_SHORT).show()
                         }
+
+                        else -> {}
                     }
                 }
             }

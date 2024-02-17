@@ -14,6 +14,7 @@ import com.umcproject.irecipe.data.remote.service.chat.AiChatDislikeService
 import com.umcproject.irecipe.data.remote.service.chat.AiChatExpiryService
 import com.umcproject.irecipe.data.remote.service.chat.AiChatRandomService
 import com.umcproject.irecipe.data.remote.service.chat.AiChatRefriService
+import com.umcproject.irecipe.data.remote.service.chat.AiChatService
 import com.umcproject.irecipe.databinding.ActivityChatBotBinding
 import com.umcproject.irecipe.domain.model.Chat
 import com.umcproject.irecipe.presentation.util.BaseActivity
@@ -28,6 +29,7 @@ class ChatBotActivity: BaseActivity<ActivityChatBotBinding>({ ActivityChatBotBin
     private var randomResponseObserver: Observer<String>? = null
     private var expiryResponseObserver: Observer<String>? = null
     private var dislikeResponseObserver: Observer<String>? = null
+    private var aiChatResponseObserver:Observer<String>? = null
 
     private lateinit var chatList: MutableList<Chat>
     private lateinit var recyclerView: RecyclerView
@@ -43,6 +45,8 @@ class ChatBotActivity: BaseActivity<ActivityChatBotBinding>({ ActivityChatBotBin
     lateinit var aiChatRandomService: AiChatRandomService
     @Inject
     lateinit var aiChatDislikeService: AiChatDislikeService
+    @Inject
+    lateinit var aiChatService: AiChatService
 
     companion object{
         const val TAG = "ChatBotActivity"
@@ -103,6 +107,9 @@ class ChatBotActivity: BaseActivity<ActivityChatBotBinding>({ ActivityChatBotBin
         dislikeResponseObserver = Observer { response ->
             addResponse(response)
         }
+        aiChatResponseObserver = Observer{response->
+            addResponse(response)
+        }
     }
 
     private fun onClickQuestion(){
@@ -145,6 +152,9 @@ class ChatBotActivity: BaseActivity<ActivityChatBotBinding>({ ActivityChatBotBin
             if (lastClickedButton == binding.btnChat4) {
                 viewModel.resultDislike(question)
                 viewModel.dislikeResponse.observe(this, dislikeResponseObserver!!)
+            }else{
+                viewModel.resultChat(question)
+                viewModel.chatResponse.observe(this, aiChatResponseObserver!!)
             }
             lastClickedButton = null
             binding.tvChat.text.clear()
