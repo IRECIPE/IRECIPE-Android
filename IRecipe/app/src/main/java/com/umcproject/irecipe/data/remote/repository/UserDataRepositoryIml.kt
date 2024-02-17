@@ -40,6 +40,7 @@ class UserDataRepositoryIml(
         private val NUM_KEY = stringPreferencesKey("num")
         private val ACCESS_KEY = stringPreferencesKey("access")
         private val REFRESH_KEY = stringPreferencesKey("refresh")
+        private val PLATFORM_KEY = stringPreferencesKey("platform")
     }
 
     override suspend fun getUserData(): User {
@@ -71,6 +72,10 @@ class UserDataRepositoryIml(
                     _userData.value.refreshToken = value
                     REFRESH_KEY
                 }
+                "platform" -> {
+                    _userData.value.platform = value
+                    PLATFORM_KEY
+                }
                 else -> throw IllegalStateException("Unknown key: $key")
             }
             preferences[preferKey] = value
@@ -80,20 +85,11 @@ class UserDataRepositoryIml(
     private fun mapperToUserData(preferences: Preferences): User{
         val num = preferences[NUM_KEY] ?: ""
         val token = preferences[ACCESS_KEY] ?: ""
+        val refresh = preferences[REFRESH_KEY] ?: ""
+        val platform = preferences[PLATFORM_KEY] ?: ""
 
-        return User(num, token)
+        return User(num, token, refresh, platform)
     }
 
-    override suspend fun getRefreshToken(){
-        /*val response = getRefreshTokenService(getUserData().num)
-        val statusCode = response.code()
 
-        if(statusCode == 200){
-            setUserData("access", response.body()?.result?.accessToken ?: "")
-            setUserData("refresh", response.body()?.result?.refreshToken ?: "")
-        }else{
-            setUserData("access", "")
-            setUserData("refresh", "")
-        }*/
-    }
 }

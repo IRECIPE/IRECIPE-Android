@@ -13,10 +13,12 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.OnLifecycleEvent
+import com.google.android.material.snackbar.Snackbar
 import com.umcproject.irecipe.R
 import com.umcproject.irecipe.data.remote.service.chat.AiChatRefriService
 import com.umcproject.irecipe.data.remote.service.login.CheckMemberService
 import com.umcproject.irecipe.databinding.FragmentMypageBinding
+import com.umcproject.irecipe.domain.State
 import com.umcproject.irecipe.presentation.ui.login.LoginActivity
 import com.umcproject.irecipe.presentation.ui.refrigerator.RefrigeratorViewModel
 import com.umcproject.irecipe.presentation.util.BaseFragment
@@ -135,9 +137,10 @@ class MypageFragment(
 
     private fun onClickLogOut(){
         binding.mypageLogout.setOnClickListener{//로그아웃
-            val intent = Intent(requireActivity(), LoginActivity::class.java)
-            startActivity(intent)
-            requireActivity().finish()
+            CoroutineScope(Dispatchers.Main).launch {
+                viewModel.eraseInfoDB() // 로컬 DB 정보 제거
+                moveLoginPage()
+            }
         }
     }
 
@@ -165,12 +168,27 @@ class MypageFragment(
         }
         //회원탈퇴
         buttonConfirm.setOnClickListener {
-            //탈퇴기능
+            CoroutineScope(Dispatchers.Main).launch {
+                viewModel.deleteUser(requireContext()).collect{ state->
+                    when(state){
+                        is State.Loading -> {}
+                        is State.Success -> { moveLoginPage() }
+                        is State.ServerError -> { Snackbar.make(requireView(), getString(R.string.error_server_delete, state.code), Snackbar.LENGTH_SHORT).show() }
+                        is State.Error -> { Snackbar.make(requireView(), getString(R.string.error_delete, state.exception.message), Snackbar.LENGTH_SHORT).show() }
+                    }
+                }
+            }
         }
         //취소
         buttonClose.setOnClickListener {
             alertDialog.dismiss()
         }
+    }
+
+    private fun moveLoginPage(){
+        val intent = Intent(requireActivity(), LoginActivity::class.java)
+        startActivity(intent)
+        requireActivity().finish()
     }
 
 }

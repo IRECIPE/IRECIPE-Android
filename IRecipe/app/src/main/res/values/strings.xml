@@ -185,6 +185,8 @@
     <string name="error_review">[Error: %s] 후기 요청이 실패했습니다.</string>
     <string name="error_server_fetch_review">[Error: %d] 리뷰를 불러오는데 실패했습니다.</string>
     <string name="error_fetch_review">[Error: %s] 리뷰를 불러오는데 실패했습니다.</string>
+    <string name="error_server_delete">[Error: %d] 회원탈퇴 요청이 실패했습니다.</string>
+    <string name="error_delete">[Error: %s] 회원탈퇴 요청이 실패했습니다.</string>
 
     <!-- Confirm Message -->
     <string name="confirm_add_ingredient">음식을 등록했어요!</string>

@@ -6,5 +6,4 @@ import com.umcproject.irecipe.domain.model.User
 interface UserDataRepository {
     suspend fun getUserData(): User
     suspend fun setUserData(key: String, value: String)
-    suspend fun getRefreshToken()
 }

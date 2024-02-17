@@ -2,6 +2,7 @@ package com.umcproject.irecipe.data.remote
 
 import android.util.Log
 import com.umcproject.irecipe.data.remote.service.login.GetRefreshTokenService
+import com.umcproject.irecipe.domain.repository.TokenRepository
 import com.umcproject.irecipe.domain.repository.UserDataRepository
 import com.umcproject.irecipe.presentation.util.ApplicationClass
 import kotlinx.coroutines.runBlocking
@@ -14,10 +15,12 @@ import javax.inject.Inject
 class AppInterceptor @Inject constructor(
     private val userDataRepository: UserDataRepository
 ): Interceptor {
+
     companion object {
         private const val AUTHORIZATION_HEADER = "Authorization"
         private const val BEARER_TOKEN_PREFIX = "Bearer "
     }
+
     @Throws
     override fun intercept(chain: Interceptor.Chain): Response {
         val authToken = runBlocking {
@@ -25,18 +28,13 @@ class AppInterceptor @Inject constructor(
         }
         val request = chain.request().putTokenHeader(authToken)
 
-        val response = chain.proceed(request)
-
-        return response
-
-        /*return if(response.isSuccessful){
-            response
-        }else{
+        return chain.proceed(request)
+        /*return if (chain.proceed(request).isSuccessful) {
+            chain.proceed(request)
+        } else {
             val newToken = runBlocking {
-                userDataRepository.getRefreshToken()
                 userDataRepository.getUserData().accessToken
             }
-
             val newRequest = chain.request().putTokenHeader(newToken)
 
             chain.proceed(newRequest)

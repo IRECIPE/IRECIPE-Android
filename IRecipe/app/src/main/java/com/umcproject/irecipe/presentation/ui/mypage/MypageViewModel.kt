@@ -7,9 +7,14 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.kakao.sdk.user.UserApiClient
+import com.navercorp.nid.NaverIdLoginSDK
+import com.navercorp.nid.oauth.NidOAuthLogin
+import com.navercorp.nid.oauth.OAuthLoginCallback
 import com.umcproject.irecipe.data.remote.request.login.FixMemberRequest
 import com.umcproject.irecipe.data.remote.request.login.SignUpRequest
 import com.umcproject.irecipe.data.remote.service.login.CheckMemberService
+import com.umcproject.irecipe.data.remote.service.login.DeleteMemberService
 import com.umcproject.irecipe.data.remote.service.login.FixMemberService
 import com.umcproject.irecipe.data.remote.service.login.NickDuplicationService
 import com.umcproject.irecipe.domain.State
@@ -17,6 +22,8 @@ import com.umcproject.irecipe.domain.model.User
 import com.umcproject.irecipe.domain.repository.UserDataRepository
 import com.umcproject.irecipe.presentation.ui.chat.ChatBotActivity
 import com.umcproject.irecipe.presentation.util.UriUtil
+import com.umcproject.irecipe.presentation.util.Util.KAKAO
+import com.umcproject.irecipe.presentation.util.Util.NAVER
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -37,6 +44,8 @@ class MypageViewModel @Inject constructor(
     private var checkMemberService: CheckMemberService,
     private val duplicationService: NickDuplicationService,
     private val fixMemberService: FixMemberService,
+    private val userDataRepository: UserDataRepository,
+    private val deleteMemberService: DeleteMemberService
 ): ViewModel() {
     private val _userInfo = MutableStateFlow(User())
     val userInfo: StateFlow<User> get() = _userInfo.asStateFlow()
@@ -221,6 +230,50 @@ class MypageViewModel @Inject constructor(
 
     }.catch { e->
         emit(State.Error(e))
+    }
+
+    suspend fun eraseInfoDB(){
+        userDataRepository.setUserData("access", "")
+        userDataRepository.setUserData("refresh", "")
+        userDataRepository.setUserData("num", "")
+    }
+
+    fun deleteUser(context: Context): Flow<State<Int>> = flow{
+        emit(State.Loading)
+
+        val platform = userDataRepository.getUserData().platform
+        val response = deleteMemberService.deleteMember()
+        val statusCode = response.code()
+
+        if(statusCode == 200){
+            eraseInfoDB()
+
+            if(platform == KAKAO) deleteKakaoMember()
+            else if(platform == NAVER) deleteNaverMember(context)
+
+            eraseInfoDB()
+            emit(State.Success(statusCode))
+        }else{
+            emit(State.ServerError(statusCode))
+        }
+    }.catch { e->
+        emit(State.Error(e))
+    }
+
+    fun deleteNaverMember(context: Context){
+        NidOAuthLogin().callDeleteTokenApi(context, object: OAuthLoginCallback {
+            override fun onError(errorCode: Int, message: String) {
+                onFailure(errorCode, message)
+            }
+            override fun onFailure(httpStatus: Int, message: String) {
+                Log.d("ERROR", message)
+            }
+            override fun onSuccess() {}
+        })
+    }
+
+    fun deleteKakaoMember(){
+        UserApiClient.instance.unlink {}
     }
 
     private fun mapperToAge(age: String): Int?{

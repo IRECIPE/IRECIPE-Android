@@ -15,6 +15,8 @@ import com.umcproject.irecipe.data.remote.service.login.LoginService
 import com.umcproject.irecipe.domain.repository.UserDataRepository
 import com.umcproject.irecipe.presentation.ui.login.manager.KakaoLoginManager
 import com.umcproject.irecipe.presentation.ui.login.manager.NaverLoginManager
+import com.umcproject.irecipe.presentation.util.Util.KAKAO
+import com.umcproject.irecipe.presentation.util.Util.NAVER
 import kotlinx.coroutines.launch
 
 class LoginViewModel(
@@ -48,7 +50,7 @@ class LoginViewModel(
 
     // 소셜에 따른 로그인 처리
     fun startLogin(platform: String){
-        if(platform == "naver"){
+        if(platform == NAVER){
             naverLoginManager.startLogin { token->
                 NidOAuthLogin().callProfileApi(object : NidProfileCallback<NidProfileResponse>{
                     override fun onError(errorCode: Int, message: String) {}
@@ -56,17 +58,19 @@ class LoginViewModel(
                     override fun onSuccess(result: NidProfileResponse) {
                         viewModelScope.launch{
                             userDataRepository.setUserData("num", result.profile?.id.toString())
+                            userDataRepository.setUserData("platform", platform)
                             onClickLogin(result.profile?.id.toString())
                         }
                     }
 
                 })
             }
-        }else if(platform == "kakao"){
+        }else if(platform == KAKAO){
             kakaoLoginManager.startKakaoLogin { token->
                 UserApiClient.instance.me { user, _ ->
                     viewModelScope.launch {
                         userDataRepository.setUserData("num", user?.id.toString())
+                        userDataRepository.setUserData("platform", platform)
                         onClickLogin(user?.id.toString())
                     }
                 }

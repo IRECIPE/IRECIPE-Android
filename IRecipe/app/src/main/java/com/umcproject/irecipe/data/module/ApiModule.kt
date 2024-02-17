@@ -19,6 +19,7 @@ import com.umcproject.irecipe.data.remote.service.comment.GetQAService
 import com.umcproject.irecipe.data.remote.service.comment.SetQAService
 import com.umcproject.irecipe.data.remote.service.comment.SetReviewService
 import com.umcproject.irecipe.data.remote.service.login.CheckMemberService
+import com.umcproject.irecipe.data.remote.service.login.DeleteMemberService
 import com.umcproject.irecipe.data.remote.service.login.FixMemberService
 import com.umcproject.irecipe.data.remote.service.login.GetRefreshTokenService
 import com.umcproject.irecipe.data.remote.service.login.LoginService
@@ -228,5 +229,11 @@ class ApiModule {
     @Singleton
     fun provideSetQAService(retrofit: Retrofit): SetQAService {
         return retrofit.create(SetQAService::class.java)
+    }
+
+    @Provides
+    @Singleton
+    fun provideDeleteMember(retrofit: Retrofit): DeleteMemberService {
+        return retrofit.create(DeleteMemberService::class.java)
     }
 }

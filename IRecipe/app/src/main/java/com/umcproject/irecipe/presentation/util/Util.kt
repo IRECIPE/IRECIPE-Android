@@ -11,6 +11,9 @@ import androidx.fragment.app.FragmentTransaction
 import com.umcproject.irecipe.R
 
 object Util {
+    const val KAKAO = "kakao"
+    const val NAVER = "naver"
+
     fun showHorizontalFragment(id: Int, activity: FragmentActivity, fragment: Fragment, tag: String){
         val transaction: FragmentTransaction =
             activity.supportFragmentManager.beginTransaction()

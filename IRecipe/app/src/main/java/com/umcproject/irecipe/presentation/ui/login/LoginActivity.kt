@@ -13,6 +13,8 @@ import com.umcproject.irecipe.domain.repository.UserDataRepository
 import com.umcproject.irecipe.presentation.ui.signup.SignUpActivity
 import com.umcproject.irecipe.presentation.util.BaseActivity
 import com.umcproject.irecipe.presentation.util.MainActivity
+import com.umcproject.irecipe.presentation.util.Util.KAKAO
+import com.umcproject.irecipe.presentation.util.Util.NAVER
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -67,10 +69,10 @@ class LoginActivity: BaseActivity<ActivityLoginBinding>({ ActivityLoginBinding.i
     private fun onClickLogin(viewModel: LoginViewModel){
         with(binding){
             llBtnKakao.setOnClickListener {
-                viewModel.startLogin("kakao")
+                viewModel.startLogin(KAKAO)
             }
             llBtnNaver.setOnClickListener {
-                viewModel.startLogin("naver")
+                viewModel.startLogin(NAVER)
             }
         }
     }

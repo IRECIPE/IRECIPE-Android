@@ -7,6 +7,7 @@ data class User(
     var num: String = "",
     var accessToken: String = "",
     var refreshToken: String = "",
+    var platform: String = "",
     var name: String = "",
     var genderCode: Int = -1,
     var age: String = "",
