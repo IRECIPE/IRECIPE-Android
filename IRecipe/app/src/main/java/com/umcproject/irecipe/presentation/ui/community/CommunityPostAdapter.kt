@@ -1,6 +1,6 @@
 package com.umcproject.irecipe.presentation.ui.community
-import android.content.Context
-import android.util.Log
+
+import java.util.Date
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,7 +9,11 @@ import coil.load
 import com.umcproject.irecipe.R
 import com.umcproject.irecipe.databinding.ItemPostBinding
 import com.umcproject.irecipe.domain.model.Post
-import com.umcproject.irecipe.presentation.util.Util
+import java.util.Calendar
+import java.text.SimpleDateFormat
+import java.util.Locale
+import java.util.TimeZone
+
 
 class CommunityPostAdapter(
     private val postList: List<Post>,
@@ -26,6 +30,7 @@ class CommunityPostAdapter(
 
         holder.setPost(post)
         post.postId?.let{ holder.onClickPostEvent(it) }
+        post.createdAt?.let { holder.dateBind(dayDifference(it)) }
     }
 
     override fun getItemCount(): Int = postList.size
@@ -55,5 +60,33 @@ class CommunityPostAdapter(
                 else binding.ivHeart.setImageResource(R.drawable.ic_heart_empty)
             }
         }
+        fun dateBind(text: String) { binding.tvTime.text = text}
+    }
+    fun dayDifference(date: String): String {
+
+        val currentTime = Calendar.getInstance().time
+        val createdAtTime = getDateFromString(date)
+
+        val dayDiff = dayDiff(createdAtTime, currentTime)
+
+        val dayDiffText: String = when {
+            dayDiff == 0L -> "오늘"
+            dayDiff in 1L..13L -> "${dayDiff}일 전"
+            dayDiff in 14L..29L -> "${dayDiff/7}주 전" // 13일부터 2주, 4주까지 표시
+            dayDiff >= 30L && dayDiff < 360L -> "${dayDiff / 30}달 전" // 1~11달
+            else -> "${dayDiff / 365}년 전" // n년 전
+
+        }
+        return dayDiffText
+    }
+    private fun getDateFromString(date: String): Date {
+        val format = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+        format.timeZone = TimeZone.getTimeZone("UTC")
+        return format.parse(date)!!
+    }
+
+    private fun dayDiff(start: Date, end: Date): Long {
+        val diff = end.time - start.time
+        return diff / (1000 * 60 * 60 * 24)
     }
 }

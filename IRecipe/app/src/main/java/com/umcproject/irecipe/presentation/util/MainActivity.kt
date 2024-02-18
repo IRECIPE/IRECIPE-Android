@@ -92,8 +92,11 @@ class MainActivity: BaseActivity<ActivityMainBinding>({ActivityMainBinding.infla
         manager.beginTransaction().replace(
             R.id.fv_main,
             HomeFragment(
+                onHideTitle = { hideTitle()},
                 onClickDetail = { title-> showTitle(title, true) },
-                onClickBackBtn = { title-> showTitle(title, false) }
+                onClickBackBtn = { title-> showTitle(title, false) },
+                onHideBottomBar = { hideBottomBar() },
+                onShowBottomBar = { showBottomBar() }
             ),
             HomeFragment.TAG
         ).commit()
