@@ -45,7 +45,7 @@ class HomeViewModel @Inject constructor(
 
 
 
-    private fun fetchRank(page: Int) {
+    private fun fetchRank(page: Int) { // 이달의 랭킹 데이터 fetch
         viewModelScope.launch {
             postRepository.fetchPostRanking(page).collect{ state->
                 when(state){
@@ -66,7 +66,7 @@ class HomeViewModel @Inject constructor(
         return postRankList
     }
 
-    fun fetchRankCategory(page: Int, category: String) {
+    fun fetchRankCategory(page: Int, category: String) { // 이달의 랭킹 카테고리별 데이터 fetch
         viewModelScope.launch {
             postRepository.fetchPostRankingCategory(page,category).collect{ state->
                 when(state){

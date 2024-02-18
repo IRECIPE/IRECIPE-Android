@@ -61,9 +61,9 @@ class HomeDetailFragment(
         currentJob?.cancel() // 현재 작업이 있으면 취소하기
     }
     private fun initView(){
-        if (selectBtn == "전체") {
+        if (selectBtn == "전체") { // 카테고리가 전체인 경우
             setRV(minPostList)
-        } else {
+        } else { // 각 카테고리대로 데이터 get, 바인딩
             homeViewModel.fetchRankCategory(0, selectBtn)
             minPostCategoryList = homeViewModel.getPostRankCategory()
 
@@ -93,7 +93,7 @@ class HomeDetailFragment(
 
     }
 
-    private fun setRV(minPostList: List<PostRank>) {
+    private fun setRV(minPostList: List<PostRank>) { // 리사이클러뷰 세팅
         binding.rvHomeDetail.layoutManager = GridLayoutManager(requireActivity(), 2)
         binding.rvHomeDetail.adapter = HomeDetailAdapter(
             minPostList,
@@ -109,14 +109,14 @@ class HomeDetailFragment(
         )
     }
 
-    private fun initbtns() {
+    private fun initbtns() { // 맨 처음 버튼 상태
         binding.btnAll.isSelected = true
         selectBtn = getString(R.string.home_detail_all)
 
         onClickBtns()
     }
 
-    private fun onClickBtns(){
+    private fun onClickBtns(){ // 버튼 클릭했을 때 상태
         val buttons = listOf(binding.btnAll, binding.btnKorean, binding.btnChinese, binding.btnJapanese,binding.btnWestern,binding.btnUnusual,binding.btnSimple,binding.btnHigh)
         buttons.forEachIndexed { index, button ->
             button.setOnClickListener {
@@ -135,7 +135,7 @@ class HomeDetailFragment(
                     else -> ""
                 }
 
-                initView()
+                initView() // 버튼 클릭할 때마다 뷰 다시
             }
         }
     }

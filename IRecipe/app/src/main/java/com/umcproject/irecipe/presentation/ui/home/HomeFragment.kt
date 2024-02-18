@@ -20,7 +20,6 @@ import com.umcproject.irecipe.presentation.ui.refrigerator.detail.RefrigeratorDe
 import com.umcproject.irecipe.presentation.util.BaseFragment
 import com.umcproject.irecipe.presentation.util.Util
 import com.umcproject.irecipe.presentation.util.Util.showHorizontalFragment
-import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.snackbar.Snackbar
 import com.umcproject.irecipe.domain.model.PostRank
 import com.umcproject.irecipe.presentation.ui.community.CommunityViewModel
@@ -53,7 +52,6 @@ class HomeFragment(
         const val NUM_PAGES = 4
     }
 
-    private val viewModel: HomeViewModel by viewModels()
     private var currentPage = 0
 
     override fun getFragmentBinding(
@@ -84,9 +82,9 @@ class HomeFragment(
     }
 
     private fun initView() {
-        val minPostList: List<PostRank> = homeViewModel.getPostRank()
-        val minPostCategoryList: List<PostRank> = homeViewModel.getPostRankCategory()
-        binding.ibtnDetail.setOnClickListener {
+        val minPostList: List<PostRank> = homeViewModel.getPostRank() // 이달의 레시피 랭킹 데이터리스트 불러오기
+        val minPostCategoryList: List<PostRank> = homeViewModel.getPostRankCategory() // 이달의 레시피 카테고리별 랭킹 데이터리스트 불러오기
+        binding.ibtnDetail.setOnClickListener { // 상세페이지로 이동
             onClickDetail("이달의 레시피 랭킹")
             showHorizontalFragment(
                 R.id.fv_main, requireActivity(),
@@ -95,7 +93,7 @@ class HomeFragment(
             )
         }
 
-        binding.rvHome.apply {
+        binding.rvHome.apply {// 리사이클러뷰에 어댑터 연결
             adapter = HomeRankingAdapter(
                     minPostList,
                 onClickPost = { // 게시글 클릭 콜백 함수
@@ -123,13 +121,13 @@ class HomeFragment(
 //        )
 //        binding.rvHome.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
 //        binding.rvHome.adapter = homeAdapter
-        val homeAdapter = HomeAdapter(
-//            homeDatas
-//            onClickDetail()
-//            onClickItem = { showVerticalFragment(R.id.fv_main, requireActivity(),) } 포스트 호출 후 구현
-        )
-        binding.rvHome.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
-        binding.rvHome.adapter = homeAdapter
+//        val homeAdapter = HomeAdapter(
+////            homeDatas
+////            onClickDetail()
+////            onClickItem = { showVerticalFragment(R.id.fv_main, requireActivity(),) } 포스트 호출 후 구현
+//        )
+//        binding.rvHome.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+//        binding.rvHome.adapter = homeAdapter
     }
 //    private fun goDetailPage(){
 //        onClickDetail("이달의 레시피 랭킹")
